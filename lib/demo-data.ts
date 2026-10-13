@@ -1,0 +1,127 @@
+import type { AdminPerson, EmergencyContact, Feedback, HelpRequest, VolunteerSummary } from "./types"
+
+function daysFromNow(n: number) {
+  const d = new Date()
+  d.setDate(d.getDate() + n)
+  return d.toISOString().slice(0, 10)
+}
+
+export const demoAccounts = {
+  user: { name: "John Doe", email: "john.doe@example.com", role: "user" as const },
+  volunteer: { name: "Sarah Johnson", email: "sarah.j@example.com", role: "volunteer" as const },
+  admin: { name: "Admin", email: "admin@handicare.org", role: "admin" as const },
+}
+
+export const demoStore = {
+  requests: [
+    {
+      id: 1,
+      title: "Ride to physiotherapy session",
+      type: "medical",
+      date: daysFromNow(1),
+      time: "10:30:00",
+      duration: 2,
+      location: "City Rehab Center, 22 Elm Street",
+      description: "I need help getting to and from my weekly physiotherapy session. I use a wheelchair.",
+      is_urgent: true,
+      status: "accepted",
+      created_at: daysFromNow(-2),
+      volunteer_id: 1,
+      volunteer_name: "Sarah Johnson",
+      user_name: "John Doe",
+      requester: { name: "John Doe", phone: "555-0134", email: "john.doe@example.com", address: "14 Oak Lane", disability: "Mobility impairment" },
+    },
+    {
+      id: 2,
+      title: "Weekly grocery run",
+      type: "shopping",
+      date: daysFromNow(3),
+      time: "15:00:00",
+      duration: 1,
+      location: "FreshMart, Main Street",
+      description: "Help picking up groceries and carrying them home. List will be ready.",
+      is_urgent: false,
+      status: "pending",
+      created_at: daysFromNow(-1),
+      volunteer_id: null,
+      volunteer_name: null,
+      user_name: "John Doe",
+      requester: { name: "John Doe", disability: "Mobility impairment", completedRequests: 4 },
+    },
+    {
+      id: 3,
+      title: "Help setting up new phone",
+      type: "other",
+      date: daysFromNow(-6),
+      time: "11:00:00",
+      duration: 1,
+      location: "14 Oak Lane",
+      description: "Need someone to set up accessibility features on my new phone.",
+      is_urgent: false,
+      status: "completed",
+      created_at: daysFromNow(-9),
+      volunteer_id: 1,
+      volunteer_name: "Sarah Johnson",
+      user_name: "John Doe",
+      requester: { name: "John Doe", phone: "555-0134", email: "john.doe@example.com", address: "14 Oak Lane", disability: "Mobility impairment" },
+    },
+    {
+      id: 4,
+      title: "Afternoon walk and conversation",
+      type: "companionship",
+      date: daysFromNow(2),
+      time: "16:00:00",
+      duration: 2,
+      location: "Riverside Park entrance",
+      description: "Would love some company for a short walk by the river.",
+      is_urgent: false,
+      status: "pending",
+      created_at: daysFromNow(-1),
+      volunteer_id: null,
+      volunteer_name: null,
+      user_name: "Maria Garcia",
+      requester: { name: "Maria Garcia", disability: "Low vision", completedRequests: 7 },
+    },
+    {
+      id: 5,
+      title: "Light cleaning in kitchen",
+      type: "housework",
+      date: daysFromNow(4),
+      time: "09:00:00",
+      duration: 3,
+      location: "88 Pine Avenue, Apt 4B",
+      description: "Help wiping counters and organizing high shelves I can't reach.",
+      is_urgent: false,
+      status: "pending",
+      created_at: daysFromNow(0),
+      volunteer_id: null,
+      volunteer_name: null,
+      user_name: "Robert Chen",
+      requester: { name: "Robert Chen", disability: "Arthritis", completedRequests: 2 },
+    },
+  ] as HelpRequest[],
+  contacts: [
+    { id: 1, name: "Emily Doe", relationship: "Daughter", phone: "555-0199", email: "emily@example.com" },
+    { id: 2, name: "Dr. Patel", relationship: "Physician", phone: "555-0222", email: null },
+  ] as EmergencyContact[],
+  feedback: [
+    { id: 1, volunteer_id: 1, volunteer_name: "Sarah Johnson", user_name: "John Doe", rating: 5, comment: "Sarah was patient and kind, and set up everything perfectly.", is_public: true, created_at: daysFromNow(-5) },
+    { id: 2, volunteer_id: 2, volunteer_name: "Michael Brown", user_name: "Maria Garcia", rating: 4, comment: "Very punctual and helpful with groceries.", is_public: true, created_at: daysFromNow(-12) },
+  ] as Feedback[],
+  volunteers: [
+    { id: 1, name: "Sarah Johnson", email: "sarah.j@example.com", phone: "555-0101", stats: { completedTasks: 18, averageRating: "4.9" } },
+    { id: 2, name: "Michael Brown", email: "michael.b@example.com", phone: "555-0102", stats: { completedTasks: 11, averageRating: "4.6" } },
+    { id: 3, name: "Aisha Khan", email: "aisha.k@example.com", phone: "555-0103", stats: { completedTasks: 7, averageRating: "4.8" } },
+  ] as VolunteerSummary[],
+  users: [
+    { id: 1, name: "John Doe", email: "john.doe@example.com", phone: "555-0134", address: "14 Oak Lane", disability: "Mobility impairment", created_at: daysFromNow(-40) },
+    { id: 2, name: "Maria Garcia", email: "maria.g@example.com", phone: "555-0177", address: "3 Birch Road", disability: "Low vision", created_at: daysFromNow(-22) },
+    { id: 3, name: "Robert Chen", email: "robert.c@example.com", phone: "555-0155", address: "88 Pine Avenue", disability: "Arthritis", created_at: daysFromNow(-3) },
+  ] as AdminPerson[],
+  adminVolunteers: [
+    { id: 1, name: "Sarah Johnson", email: "sarah.j@example.com", phone: "555-0101", address: "5 Cedar Ct", skills: "Driving, Tech help", availability: "Weekdays", created_at: daysFromNow(-60) },
+    { id: 2, name: "Michael Brown", email: "michael.b@example.com", phone: "555-0102", address: "17 Maple St", skills: "Shopping, Lifting", availability: "Weekends", created_at: daysFromNow(-30) },
+    { id: 3, name: "Aisha Khan", email: "aisha.k@example.com", phone: "555-0103", address: "41 Willow Way", skills: "Companionship, Sign language", availability: "Evenings", created_at: daysFromNow(-8) },
+  ] as AdminPerson[],
+  nextId: 100,
+}
